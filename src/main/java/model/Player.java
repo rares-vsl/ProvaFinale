@@ -2,12 +2,12 @@ package model;
 
 public class Player {
     private int x, y;
-    private int width = 50, height = 50;
+    private int width = 40, height = 70;
     private double velocityX, velocityY;
 
     // Costanti per la fisica
     private final double GRAVITY = 0.5;
-    private final double JUMP_STRENGTH = -10; // 50
+    private final double JUMP_STRENGTH = -50;
     private final double MOVE_SPEED = 5;
 
     // Flag per gestire il salto singolo

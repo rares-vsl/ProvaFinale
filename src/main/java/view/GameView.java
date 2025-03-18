@@ -5,8 +5,12 @@ import model.Pillar;
 import model.Player;
 import model.Terrain;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 public class GameView extends JPanel {
     private GameModel model;
@@ -14,10 +18,17 @@ public class GameView extends JPanel {
     private final int fixedWidth = 1200;
     private final int fixedHeight = 400;
 
+    private BufferedImage playerTexture;
     public GameView(GameModel model) {
         this.model = model;
         setPreferredSize(new Dimension(fixedWidth, fixedHeight));
         setBackground(Color.WHITE);
+
+        try {
+            playerTexture = ImageIO.read(Paths.get("src/main/resources/davide.png").toFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,11 +56,14 @@ public class GameView extends JPanel {
 
         model.getLevel().getWinBox().draw(g2d);
 
-        // Disegna il player (un quadrato rosso)
+        // Disegna il player
         Player p = model.getPlayer();
-        g2d.setColor(Color.RED);
-        g2d.fillRect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
-
+        if (playerTexture != null) {
+            g2d.drawImage(playerTexture, p.getX(), p.getY(), p.getWidth(), p.getHeight(), null);
+        } else {
+            g2d.setColor(Color.RED);
+            g2d.fillRect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+        }
         g2d.dispose();
     }
 }

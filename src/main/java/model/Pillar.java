@@ -17,8 +17,9 @@ public class Pillar extends Terrain {
         // Verifica l'overlap orizzontale
         if (playerX + playerW > getX() && playerX < getX() + getWidth()) {
             // Verifica se la parte bassa del giocatore tocca il pilastro dall'alto
+
             if (playerY + playerH >= getY() && playerY < getY()) {
-                return true;
+                return false;
             }
         }
         return false;

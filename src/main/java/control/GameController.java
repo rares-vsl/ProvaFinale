@@ -29,7 +29,7 @@ public class GameController implements KeyListener, ActionListener {
         view.requestFocusInWindow();
 
         // Timer per il game loop (circa 50 fps)
-        timer = new Timer(20, this);
+        timer = new Timer(500, this);
         timer.start();
     }
 

@@ -43,7 +43,7 @@ public class Level {
 
     private void addWinBox(int units, int height) {
         int winBoxX = currentX + 50 * scale; // 50 unità dopo l'inizio della piattaforma finale
-        int winBoxY = groundY - height - 20; // Posizionato sopra la piattaforma finale
+        int winBoxY = groundY - height + 50; // Posizionato sopra la piattaforma finale
         winBox = new WinBox(winBoxX, winBoxY, units, height);
     }
     public List<Terrain> getTerrains() {
