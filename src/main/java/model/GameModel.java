@@ -6,7 +6,7 @@ public class GameModel {
 
     public GameModel() {
         // Il giocatore parte ad una posizione iniziale (ad esempio, 50 pixel da sinistra e 300 pixel in verticale)
-        player = new Player(50, 300);
+        player = new Player(500, 300);
         level = new Level();
     }
 

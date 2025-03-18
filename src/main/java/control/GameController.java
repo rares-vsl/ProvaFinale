@@ -2,6 +2,7 @@ package control;
 
 import model.GameModel;
 import model.Terrain;
+import model.WinBox;
 import view.GameFrame;
 import view.GameView;
 
@@ -28,7 +29,7 @@ public class GameController implements KeyListener, ActionListener {
         view.requestFocusInWindow();
 
         // Timer per il game loop (circa 50 fps)
-        timer = new Timer(50, this);
+        timer = new Timer(20, this);
         timer.start();
     }
 
@@ -36,15 +37,28 @@ public class GameController implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         model.update();
 
+        boolean landed = false;
+
         // Controllo collisioni per atterrare sul terreno
         for (Terrain t : model.getLevel().getTerrains()) {
             if (t.checkCollision(model.getPlayer())) {
                 model.getPlayer().land(t.getY());
+                landed = true;
+                break;
+            } else if (t.checkSideCollision(model.getPlayer())) {
+                model.getPlayer().stop();
             }
         }
 
+        // Controllo collisione con il box giallo
+        if (model.getLevel().getWinBox().checkCollision(model.getPlayer())) {
+            timer.stop();
+            gameFrame.showWinMessage();
+            return;
+        }
+
         // Se il player cade al di sotto della soglia, interrompi il gioco
-        if (model.getPlayer().getY() > FALL_THRESHOLD) {
+        if (!landed && model.getPlayer().getY() > FALL_THRESHOLD) {
             timer.stop();
             gameFrame.showGameOver();
         }

@@ -56,9 +56,11 @@ public class Player {
 
     // Viene chiamato quando il giocatore collide con una piattaforma
     public void land(int groundY) {
-        y = groundY - height;
-        velocityY = 0;
-        canJump = true;
+        if (velocityY > 0) { // Assicurati che il giocatore stia cadendo
+            y = groundY - height;
+            velocityY = 0;
+            canJump = true;
+        }
     }
 
     // Getters
